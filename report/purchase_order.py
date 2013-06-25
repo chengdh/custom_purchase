@@ -9,5 +9,6 @@ from purchase.report.order import order
 from netsvc import Service
 del Service._services['report.purchase.order']
 report_sxw.report_sxw('report.purchase.order.new','purchase.order','addons/custom_purchase/report/purchase_order.mako',parser=order)
-
+#导出到excel
+report_sxw.report_sxw('report.purchase.order.new.xls','purchase.order','addons/custom_purchase/report/purchase_order.mako',parser=order)
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

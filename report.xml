@@ -5,5 +5,11 @@
       <report id="purchase.report_purchase_order" model="purchase.order"
         name="purchase.order.new" file="custom_purchase/report/purchase_order.mako"
         usage="default" string="Purchase Order" report_type='mako2html' header='0' />
+
+      <!--导出到excel-->
+      <report id="report_purchase_order_excel" model="purchase.order"
+        name="purchase.order.new.xls" file="custom_purchase/report/purchase_order.mako"
+        usage="default" string="export purchase order to excel" report_type='mako2html' header='0' />
+ 
     </data>
 </openerp>
