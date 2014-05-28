@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <!--设置2种流程供用户选择-->
+    <!--工程采购:库管-保障经理-后勤主管 -->
+    <record id="act_sub_1" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">sub_1</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'subed_1'})</field>
+    </record>
+
+    <!--技术部采购: 库管-技术部经理 -->
+    <record id="act_sub_2" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">sub_2</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'subed_2'})</field>
+    </record>
+
+    <!-- 库管审批-project -->
+    <record id="act_stock_manager_approve_project" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">stock_manager_approve_project</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'project_stock_manager_approved'})</field>
+    </record>
+
+
+    <!-- 库管审批-it -->
+    <record id="act_stock_manager_approve_it" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">stock_manager_approve_id</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'it_stock_manager_approved'})</field>
+    </record>
+
+    <!-- 技术部经理审批 -->
+    <record id="act_it_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">it_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'it_manager_approved'})</field>
+    </record>
+
+    <!-- 保障经理审批 -->
+    <record id="act_support_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">support_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'support_manager_approved'})</field>
+    </record>
+
+    <!-- 后勤主管审批 -->
+    <record id="act_houqin_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">houqin_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'houqin_manager_approved'})</field>
+    </record>
+
+    <!-- 定义迁移 -->
+    <!-- draft-sub_1-->
+    <record id="t1" model="workflow.transition">
+      <field name="act_from" ref="purchase.act_draft"/>
+      <field name="act_to" ref="act_sub_1"/>
+      <field name="signal">sub_1</field>
+    </record>
+
+    <!--库管审批-->
+    <record id="t1_1" model="workflow.transition">
+      <field name="act_from" ref="act_sub_1"/>
+      <field name="act_to" ref="act_stock_manager_approve_project"/>
+      <field name="signal">stock_manager_approve_project</field>
+    </record>
+    <!--保障经理-->
+    <record id="t1_2" model="workflow.transition">
+      <field name="act_from" ref="act_stock_manager_approve_project"/>
+      <field name="act_to" ref="act_support_manager_approve"/>
+      <field name="signal">support_manager_approve</field>
+    </record>
+
+    <!--后勤主管-->
+    <record id="t1_3" model="workflow.transition">
+      <field name="act_from" ref="act_support_manager_approve"/>
+      <field name="act_to" ref="act_houqin_manager_approve"/>
+      <field name="signal">houqin_manager_approve</field>
+    </record>
+
+
+    <!-- draft-sub_2-->
+    <record id="t2" model="workflow.transition">
+      <field name="act_from" ref="purchase.act_draft"/>
+      <field name="act_to" ref="act_sub_2"/>
+      <field name="signal">sub_2</field>
+    </record>
+
+    <!--库管审批-->
+    <record id="t2_1" model="workflow.transition">
+      <field name="act_from" ref="act_sub_2"/>
+      <field name="act_to" ref="act_stock_manager_approve_it"/>
+      <field name="signal">stock_manager_approve_it</field>
+    </record>
+
+    <record id="t2_2" model="workflow.transition">
+      <field name="act_from" ref="act_sub_2"/>
+      <field name="act_to" ref="act_it_manager_approve"/>
+      <field name="signal">it_manager_approve</field>
+    </record>
+
+    <!-- t1-3 至 confirm -->
+     <record id="t1_4" model="workflow.transition">
+      <field name="act_from" ref="act_it_manager_approve"/>
+      <field name="act_to" ref="purchase.act_confirmed"/>
+      <field name="signal">purchase_confirm</field>
+    </record>
+
+
+    <!-- t2-2 至 confirm -->
+     <record id="t2_3" model="workflow.transition">
+      <field name="act_from" ref="act_houqin_manager_approve"/>
+      <field name="act_to" ref="purchase.act_confirmed"/>
+      <field name="signal">purchase_confirm</field>
+    </record>
+
+  </data>
+</openerp>
