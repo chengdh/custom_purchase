@@ -104,7 +104,7 @@
     </record>
 
     <record id="t2_2" model="workflow.transition">
-      <field name="act_from" ref="act_sub_2"/>
+      <field name="act_from" ref="act_stock_manager_approve_it"/>
       <field name="act_to" ref="act_it_manager_approve"/>
       <field name="signal">it_manager_approve</field>
     </record>

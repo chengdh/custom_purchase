@@ -21,7 +21,7 @@
 
             <button name="stock_manager_approve_project" states="subed_1" string="库管审批" />
             <button name="support_manager_approve" states="project_stock_manager_approved" string="保障经理审批" />
-            <button name="houqin_manager_approve" states="it_stock_manager_approved" string="后勤主管审批" />
+            <button name="houqin_manager_approve" states="support_manager_approved" string="后勤主管审批" />
 
 
             <button name="stock_manager_approve_it" states="subed_2" string="库管审批" />
