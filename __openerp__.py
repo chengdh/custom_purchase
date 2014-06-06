@@ -10,7 +10,7 @@
     'license': 'AGPL-3',
     'depends': ['purchase'],
     'init_xml': [],
-    'update_xml': ['purchase_view.xml','purchase_workflow.xml','report.xml'],
+    'update_xml': ['purchase_view.xml','purchase_workflow.xml','report.xml','security/purchase_secure.xml'],
     'demo_xml': [],
     'active': False,
     'installable': True,

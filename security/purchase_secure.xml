@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<openerp>
+  <data>
+    <!--保障经理-->
+    <record id="group_support_manager" model="res.groups">
+        <field name="name">保障经理</field>
+        <field name="comment">保障经理.</field>
+        <field name="category_id" ref="base.module_category_purchase"/>
+        <field name="implied_ids" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <!--后勤主管-->
+    <record id="group_houqin_manager" model="res.groups">
+        <field name="name">后勤主管</field>
+        <field name="comment">后勤主管.</field>
+        <field name="category_id" ref="base.module_category_purchase"/>
+        <field name="implied_ids" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+    <!--技术主管-->
+    <record id="group_it_manager" model="res.groups">
+        <field name="name">技术主管</field>
+        <field name="comment">技术主管.</field>
+        <field name="category_id" ref="base.module_category_purchase"/>
+        <field name="implied_ids" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
+
+  </data>
+</openerp>
+
+
