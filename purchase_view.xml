@@ -20,7 +20,8 @@
 
 
             <button name="stock_manager_approve_project" states="subed_1" string="库管审批" groups="stock.group_stock_manager" />
-            <button name="support_manager_approve" states="project_stock_manager_approved" string="保障经理审批" groups="custom_purchase.group_support_manager" />
+            <button name="shop_manager_approve" states="project_stock_manager_approved" string="店长审批" groups="base.group_shop_manager" />
+            <button name="support_manager_approve" states="shop_manager_approved" string="保障经理审批" groups="custom_purchase.group_support_manager" />
             <button name="houqin_manager_approve" states="support_manager_approved" string="后勤主管审批" groups="custom_purchase.group_houqin_manager" />
 
 
@@ -32,7 +33,12 @@
             <button name="purchase_confirm" states="sent" string="Confirm Order" class="oe_highlight"/>
             <button name="wkf_send_rfq" states="confirmed" string="Resend Purchase Order" type="object" class="oe_highlight"/>
             -->
-            <button name="action_cancel" states="approved,except_picking,except_invoice" string="Cancel Order" type="object" />
+            <button name="action_cancel" states="project_stock_manager_approved" string="Cancel Order" type="object" />
+ 
+            <button name="action_cancel" states="approved,subed_1,subed_2,
+              it_stock_manager_approved,it_manager_approved,
+              support_manager_approved,houqin_manager_approved,shop_manager_approved,
+              xcept_picking,except_invoice" string="Cancel Order" type="object" />
             <button name="picking_ok" states="except_picking" string="Manually Corrected"/>
             <button name="invoice_ok" states="except_invoice" string="Manually Corrected"/>
             <button name="purchase_approve" states="confirmed" string="Approve Order" class="oe_highlight" groups="purchase.group_purchase_manager"/>
@@ -40,7 +46,10 @@
             <button name="view_invoice" string="Receive Invoice" type="object" attrs="{'invisible': ['|', ('invoice_method','in', ['picking', 'manual']), '|', ('state','!=', 'approved'), ('invoiced','=',True) ]}" class="oe_highlight"/>
             <button name="action_cancel_draft" states="cancel,sent,confirmed" string="Set to Draft" type="object" />
             <button name="purchase_cancel" states="draft,confirmed,sent" string="Cancel Order"/>
-            <field name="state" widget="statusbar" statusbar_visible="draft,subed_1,subed_2,project_stock_manager_approved,it_stock_manager_approved,it_manager_approved,support_manager_approved,houqin_manager_approved,sent,approved,done" statusbar_colors='{"except_picking":"red","except_invoice":"red","confirmed":"blue"}' readonly="1"/>
+            <field name="state" widget="statusbar" statusbar_visible="draft,subed_1,subed_2,project_stock_manager_approved,
+              it_stock_manager_approved,it_manager_approved,shop_manager_approved,
+              support_manager_approved,houqin_manager_approved,sent,approved,done" 
+              statusbar_colors='{"except_picking":"red","except_invoice":"red","confirmed":"blue"}' readonly="1"/>
           </header>
         </header>
       </field>

@@ -28,6 +28,7 @@ class purchase_order(osv.osv):
         ('it_manager_approved','技术经理已审'),
         ('support_manager_approved','保障经理已审'),
         ('houqin_manager_approved','后勤经理已审'),
+        ('shop_manager_approved','店长已审'),
     ]
 
   _columns = {

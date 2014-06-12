@@ -8,7 +8,7 @@
     'author': 'chengdh (cheng.donghui@gmail.com)',
     'website': '',
     'license': 'AGPL-3',
-    'depends': ['purchase'],
+    'depends': ['purchase','custom_hr_expense'],
     'init_xml': [],
     'update_xml': ['security/purchase_secure.xml','purchase_view.xml','purchase_workflow.xml','report.xml'],
     'demo_xml': [],

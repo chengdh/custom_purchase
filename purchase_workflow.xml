@@ -44,6 +44,15 @@
       <field name="action">write({'state': 'it_manager_approved'})</field>
     </record>
 
+    <!--店长审批-->
+    <record id="act_shop_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">shop_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'shop_manager_approved'})</field>
+    </record>
+
+
     <!-- 保障经理审批 -->
     <record id="act_support_manager_approve" model="workflow.activity">
       <field name="wkf_id" ref="purchase.purchase_order"/>
@@ -74,9 +83,17 @@
       <field name="act_to" ref="act_stock_manager_approve_project"/>
       <field name="signal">stock_manager_approve_project</field>
     </record>
+
+    <!--店长审批-->
+    <record id="t1_1_1" model="workflow.transition">
+      <field name="act_from" ref="act_stock_manager_approve_project"/>
+      <field name="act_to" ref="act_shop_manager_approve"/>
+      <field name="signal">shop_manager_approve</field>
+    </record>
+
     <!--保障经理-->
     <record id="t1_2" model="workflow.transition">
-      <field name="act_from" ref="act_stock_manager_approve_project"/>
+      <field name="act_from" ref="act_shop_manager_approve"/>
       <field name="act_to" ref="act_support_manager_approve"/>
       <field name="signal">support_manager_approve</field>
     </record>
