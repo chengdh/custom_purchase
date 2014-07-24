@@ -10,7 +10,11 @@
     'license': 'AGPL-3',
     'depends': ['purchase','custom_hr_expense'],
     'init_xml': [],
-    'update_xml': ['security/purchase_secure.xml','purchase_view.xml','purchase_workflow.xml','report.xml'],
+    'update_xml': [
+      'security/purchase_secure.xml',
+      'security/ir.rules.xml',
+      'purchase_view.xml',
+      'purchase_workflow.xml','report.xml'],
     'demo_xml': [],
     'active': False,
     'installable': True,

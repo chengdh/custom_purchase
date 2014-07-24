@@ -106,6 +106,7 @@ class purchase_order(osv.osv):
 
 
   _columns = {
+      'department_id':fields.many2one('hr.department','部门', readonly=True, states={'draft':[('readonly',False)]}),
       'state': fields.selection(STATE_SELECTION, 'Status', readonly=True, select=True),
       "next_workflow_signal" : fields.function(_next_workflow_signal,string="根据当前用户计算下一个workflow signal"),
       }

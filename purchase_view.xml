@@ -52,6 +52,9 @@
               statusbar_colors='{"except_picking":"red","except_invoice":"red","confirmed":"blue"}' readonly="1"/>
           </header>
         </header>
+        <field name="partner_id" position="after">
+          <field name="department_id" />
+        </field>
       </field>
     </record>
   </data>
