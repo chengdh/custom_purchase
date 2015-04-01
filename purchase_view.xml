@@ -15,29 +15,50 @@
             <button name="print_quotation" string="Print" type="object" states="draft" class="oe_highlight" groups="base.group_user"/>
             <button name="print_quotation" string="Print" type="object" states="sent" groups="base.group_user"/>
 
-            <button name="sub_1" states="draft" string="工程采购" />
-            <button name="sub_2" states="draft" string="技术采购" />
+            <button name="sub_zongbu_caigou" states="draft" string="总部采购" />
+            <button name="sub_diannei_jishu" states="draft" string="店内技术采购" />
+            <button name="sub_diannei_gongcheng" states="draft" string="店内工程采购" />
+            <button name="sub_diannei_ryp" states="draft" string="店内日用品采购" />
 
 
-            <button name="stock_manager_approve_project" states="subed_1" string="库管审批" groups="stock.group_stock_manager" />
-            <button name="shop_manager_approve" states="project_stock_manager_approved" string="店长审批" groups="base.group_shop_manager" />
-            <button name="support_manager_approve" states="shop_manager_approved" string="保障经理审批" groups="custom_purchase.group_support_manager" />
-            <button name="houqin_manager_approve" states="support_manager_approved" string="后勤主管审批" groups="custom_purchase.group_houqin_manager" />
+            <button name="support_manage_approve" states="subed_zongbu_caigou,subed_diannei_jishu,subed_diannei_gongcheng,subed_diannei_ryp" string="保障经理审批" groups="custom_purchase.group_support_manager" />
+            <button name="hr_manage_approve" states="zongbu_caigou_support_manager_approved" string="办公室主任审批" groups="base.group_hr_manager" />
+            <button name="ceo_approve" states="zongbu_caigou_hr_manage_approved" string="总经理审批" groups="base.group_ceo" />
 
 
-            <button name="stock_manager_approve_it" states="subed_2" string="库管审批"  groups="stock.group_stock_manager" />
-            <button name="it_manager_approve" states="it_stock_manager_approved" string="经理审批" groups="custom_purchase.group_it_manager" />
+            <button name="shop_manager_approve" 
+              states="diannei_jishu_support_manager_approved,diannei_gongcheng_support_manager_approved,diannei_ryp_support_manager_approved"
+              string="店长审批" groups="base.group_shop_manager" />
+            <button name="vice_general_manager_approve"
+              states="diannei_jishu_shop_manager_approved,diannei_gongcheng_shop_manager_approved,diannei_ryp_shop_manager_approved"
+              string="副总审批"
+              groups="base.group_vice_general_manager" />
 
-            <button name="purchase_confirm" states="it_manager_approved,houqin_manager_approved" string="Confirm Order" groups="custom_purchase.group_it_manager,custom_purchase.group_houqin_manager" />
+            <button name="it_manager_approve" states="diannei_jishu_vice_general_manager_approved" 
+              string="技术部经理审批" groups="custom_purchase.group_it_manager" />
+
+            <button name="project_manager_approve"
+              states="diannei_gongcheng_vice_general_manager_approved"
+              string="工程部经理审批" groups="custom_purchase.group_project_manager" />
+
+            <button name="purchase_confirm" states="zongbu_caigou_ceo_approved,diannei_jishu_it_manager_approved,diannei_gongcheng_project_manager_approved,diannei_ryp_vice_general_manager_approved"
+              string="Confirm Order" groups="custom_purchase.group_it_manager,custom_purchase.group_project_manager,base.group_ceo,base.group_vice_general_manager" />
             <!--
             <button name="purchase_confirm" states="sent" string="Confirm Order" class="oe_highlight"/>
             <button name="wkf_send_rfq" states="confirmed" string="Resend Purchase Order" type="object" class="oe_highlight"/>
             -->
-            <button name="action_cancel" states="project_stock_manager_approved" string="Cancel Order" type="object" />
- 
-            <button name="action_cancel" states="approved,subed_1,subed_2,
-              it_stock_manager_approved,it_manager_approved,
-              support_manager_approved,houqin_manager_approved,shop_manager_approved,
+            <button name="action_cancel" states="subed_zongbu_caigou,zongbu_caigou_support_manager_approved,
+              zongbu_caigou_hr_manager_approved,zongbu_caigou_ceo_approved,
+              subed_diannei_jishu,diannei_jishu_support_manager_approved,
+              diannei_jishu_shop_manager_approved,diannei_jishu_vice_general_manager_approved,
+              diannei_jishu_it_manager_approved,
+              subed_diannei_gongcheng,diannei_gongcheng_support_manager_approved,
+              diannei_gongcheng_shop_manager_approved,diannei_gongcheng_vice_general_manager_approved,
+              diannei_gongcheng_project_manager_approved,
+              subed_diannei_ryp,
+              diannei_ryp_support_manager_approved,
+              diannei_ryp_shop_manager_approved,
+              diannei_ryp_vice_general_manager_approved,
               xcept_picking,except_invoice" string="Cancel Order" type="object" />
             <button name="picking_ok" states="except_picking" string="Manually Corrected"/>
             <button name="invoice_ok" states="except_invoice" string="Manually Corrected"/>
@@ -46,9 +67,12 @@
             <button name="view_invoice" string="Receive Invoice" type="object" attrs="{'invisible': ['|', ('invoice_method','in', ['picking', 'manual']), '|', ('state','!=', 'approved'), ('invoiced','=',True) ]}" class="oe_highlight"/>
             <button name="action_cancel_draft" states="cancel,sent,confirmed" string="Set to Draft" type="object" />
             <button name="purchase_cancel" states="draft,confirmed,sent" string="Cancel Order"/>
-            <field name="state" widget="statusbar" statusbar_visible="draft,subed_1,subed_2,project_stock_manager_approved,
-              it_stock_manager_approved,it_manager_approved,shop_manager_approved,
-              support_manager_approved,houqin_manager_approved,sent,approved,done" 
+            <field name="state"
+              widget="statusbar"
+              statusbar_visible="draft,subed_zongbu_caigou,subed_diannei_jishu,subed_diannei_gongcheng,subed_diannei_ryp,
+              zongbu_caigou_ceo_approved,diannei_jishu_it_manager_approved,diannei_gongcheng_project_manager_approved,
+              diannei_ryp_vice_general_manager_approved,
+              sent,approved,done"
               statusbar_colors='{"except_picking":"red","except_invoice":"red","confirmed":"blue"}' readonly="1"/>
           </header>
         </header>

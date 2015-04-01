@@ -27,5 +27,15 @@
         <field name="implied_ids" eval="[(4, ref('purchase.group_purchase_user'))]"/>
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>
+
+    <!--工程主管-->
+    <record id="group_project_manager" model="res.groups">
+      <field name="name">工程部经理</field>
+        <field name="comment">工程部经理.</field>
+        <field name="category_id" ref="base.module_category_purchase_management"/>
+        <field name="implied_ids" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+
   </data>
 </openerp>

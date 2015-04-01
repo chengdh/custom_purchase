@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <!--有4种流程-->
+    <!--1 总部采购-->
+    <!--总公司营运保障-人力资源经理-总经理 -->
+    <!--2 店内技术物品采购-->
+    <!--店内营运保障-店长-驻店副总-技术部经理 -->
+    <!--3 店内工程物品采购-->
+    <!--店内营运保障-店长-驻店副总-工程部经理 -->
+    <!--3 店内日用品采购-->
+    <!--店内营运保障-店长-驻店副总 -->
+
+    <!--总部采购-->
+    <record id="act_sub_zongbu_caigou" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">sub_zongbu_caigou</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'subed_zongbu_caigou'})</field>
+    </record>
+    <!--营运保障审批-->
+    <record id="act_zongbu_caigou_support_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">zongbu_caigou_support_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'zongbu_caigou_support_manager_approved'})</field>
+    </record>
+
+    <!--人力资源经理(办公室主任)审批-->
+    <record id="act_zongbu_caigou_hr_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">zongbu_caigou_hr_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'zongbu_caigou_hr_manager_approved'})</field>
+    </record>
+
+    <!--总经理审批-->
+    <record id="act_zongbu_caigou_ceo_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">zongbu_caigou_ceo_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'zongbu_caigou_ceo_approved'})</field>
+    </record>
+
+    <!-- draft-act_sub_zongbu_caigou-->
+    <record id="t1" model="workflow.transition">
+      <field name="act_from" ref="purchase.act_draft"/>
+      <field name="act_to" ref="act_sub_zongbu_caigou"/>
+      <field name="signal">sub_zongbu_caigou</field>
+    </record>
+
+    <!--营运保障审批-->
+    <record id="t1_1" model="workflow.transition">
+      <field name="act_from" ref="act_sub_zonbu_caigou"/>
+      <field name="act_to" ref="act_zongbu_caigou_hr_manager_approve"/>
+      <field name="signal">support_manager_approve</field>
+    </record>
+
+    <!--办公室主任审批-->
+    <record id="t1_2" model="workflow.transition">
+      <field name="act_from" ref="act_zongbu_caigou_hr_manager_approve"/>
+      <field name="act_to" ref="act_zongbu_caigou_hr_manager_approve"/>
+      <field name="signal">hr_manager_approve</field>
+    </record>
+
+
+    <!--总经理审批-->
+    <record id="t1_3" model="workflow.transition">
+      <field name="act_from" ref="act_zongbu_caigou_hr_manager_approve"/>
+      <field name="act_to" ref="act_zongbu_caigou_ceo_approve"/>
+      <field name="signal">ceo_approve</field>
+    </record>
+
+
+    <!--总部采购完毕-->
+
+
+    <!--店内技术-->
+    <record id="act_sub_diannei_jishu" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">sub_diannei_jishu</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'subed_diannei_jishu'})</field>
+    </record>
+    <!--营运保障审批-->
+    <record id="act_diannei_jishu_support_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">diannei_jishu_support_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'diannei_jishu_support_manager_approved'})</field>
+    </record>
+
+    <!--店长审批-->
+    <record id="act_diannei_jishu_shop_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">diannei_jishu_shop_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'diannei_jishu_shop_manager_approved'})</field>
+    </record>
+
+    <!--副总审批-->
+    <record id="act_diannei_jishu_vice_general_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">diannei_jishu_vice_general_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'diannei_jishu_vice_general_manager_approved'})</field>
+    </record>
+
+    <!--技术部经理审批-->
+    <record id="act_diannei_jishu_it_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">diannei_jishu_it_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'diannei_jishu_it_manager_approved'})</field>
+    </record>
+
+    <!--定义transit-->
+    <!-- draft-act_sub_diannei_jishu-->
+    <record id="t2" model="workflow.transition">
+      <field name="act_from" ref="purchase.act_draft"/>
+      <field name="act_to" ref="act_sub_diannei_jishu"/>
+      <field name="signal">sub_diannei_jishu</field>
+    </record>
+
+    <!--营运保障审批-->
+    <record id="t2_1" model="workflow.transition">
+      <field name="act_from" ref="act_sub_diannei_jishu"/>
+      <field name="act_to" ref="act_diannei_jishu_support_manager_approve"/>
+      <field name="signal">support_manager_approve</field>
+    </record>
+
+    <!--店长审批-->
+    <record id="t2_2" model="workflow.transition">
+      <field name="act_from" ref="act_diannei_jishu_support_manager_approve"/>
+      <field name="act_to" ref="act_diannei_jishu_shop_manager_approve"/>
+      <field name="signal">shop_manager_approve</field>
+    </record>
+
+    <!--副总审批-->
+    <record id="t2_3" model="workflow.transition">
+      <field name="act_from" ref="act_diannei_jishu_shop_manager_approve"/>
+      <field name="act_to" ref="act_diannei_jishu_vice_general_manager_approve"/>
+      <field name="signal">vice_general_manager_approve</field>
+    </record>
+
+
+    <!--技术部经理审批-->
+    <record id="t2_4" model="workflow.transition">
+      <field name="act_from" ref="act_diannei_jishu_vice_general_manager_approve"/>
+      <field name="act_to" ref="act_diannei_jishu_it_manager_approve"/>
+      <field name="signal">it_manager_approve</field>
+    </record>
+    <!--完毕-->
+
+
+
+    <!--店内工程-->
+    <record id="act_sub_diannei_gongcheng" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">sub_diannei_gongcheng</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'subed_diannei_gongcheng'})</field>
+    </record>
+    <!--营运保障审批-->
+    <record id="act_diannei_gongcheng_support_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">diannei_gongcheng_support_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'diannei_gongcheng_support_manager_approved'})</field>
+    </record>
+
+    <!--店长审批-->
+    <record id="act_diannei_gongcheng_shop_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">diannei_gongcheng_shop_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'diannei_gongcheng_shop_manager_approved'})</field>
+    </record>
+
+    <!--副总审批-->
+    <record id="act_diannei_gongcheng_vice_general_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">diannei_gongcheng_vice_general_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'diannei_gongcheng_vice_general_manager_approved'})</field>
+    </record>
+
+    <!--工程部经理审批-->
+    <record id="act_diannei_gongcheng_project_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">diannei_gongcheng_project_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'diannei_gongcheng_project_manager_approved'})</field>
+    </record>
+
+    <!--定义transit-->
+    <!-- draft-act_sub_diannei_jishu-->
+    <record id="t3" model="workflow.transition">
+      <field name="act_from" ref="purchase.act_draft"/>
+      <field name="act_to" ref="act_sub_diannei_gongcheng"/>
+      <field name="signal">sub_diannei_gongcheng</field>
+    </record>
+
+    <!--营运保障审批-->
+    <record id="t3_1" model="workflow.transition">
+      <field name="act_from" ref="act_sub_diannei_gongcheng"/>
+      <field name="act_to" ref="act_diannei_gongcheng_support_manager_approve"/>
+      <field name="signal">support_manager_approve</field>
+    </record>
+
+    <!--店长审批-->
+    <record id="t3_2" model="workflow.transition">
+      <field name="act_from" ref="act_diannei_gongcheng_support_manager_approve"/>
+      <field name="act_to" ref="act_diannei_gongcheng_shop_manager_approve"/>
+      <field name="signal">shop_manager_approve</field>
+    </record>
+
+    <!--副总审批-->
+    <record id="t3_3" model="workflow.transition">
+      <field name="act_from" ref="act_diannei_gongcheng_shop_manager_approve"/>
+      <field name="act_to" ref="act_diannei_gongcheng_vice_general_manager_approve"/>
+      <field name="signal">vice_general_manager_approve</field>
+    </record>
+
+
+    <!--工程部经理审批-->
+    <record id="t3_4" model="workflow.transition">
+      <field name="act_from" ref="act_diannei_gongcheng_vice_general_manager_approve"/>
+      <field name="act_to" ref="act_diannei_gongcheng_project_manager_approve"/>
+      <field name="signal">project_manager_approve</field>
+    </record>
+
+    <!--完毕-->
+
+
+    <!--店内日用品-->
+    <record id="act_sub_diannei_ryp" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">sub_diannei_ryp</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'subed_diannei_ryp'})</field>
+    </record>
+    <!--营运保障审批-->
+    <record id="act_diannei_ryp_support_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">diannei_ryp_support_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'diannei_ryp_support_manager_approved'})</field>
+    </record>
+
+    <!--店长审批-->
+    <record id="act_diannei_ryp_shop_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">diannei_ryp_shop_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'diannei_ryp_shop_manager_approved'})</field>
+    </record>
+
+    <!--副总审批-->
+    <record id="act_diannei_ryp_vice_general_manager_approve" model="workflow.activity">
+      <field name="wkf_id" ref="purchase.purchase_order"/>
+      <field name="name">diannei_ryp_vice_general_manager_approve</field>
+      <field name="kind">function</field>
+      <field name="action">write({'state': 'diannei_ryp_vice_general_manager_approved'})</field>
+    </record>
+
+    <!--定义transit-->
+    <!-- draft-act_sub_diannei_jishu-->
+    <record id="t4" model="workflow.transition">
+      <field name="act_from" ref="purchase.act_draft"/>
+      <field name="act_to" ref="act_sub_diannei_ryp"/>
+      <field name="signal">sub_diannei_ryp</field>
+    </record>
+
+    <!--营运保障审批-->
+    <record id="t4_1" model="workflow.transition">
+      <field name="act_from" ref="act_sub_diannei_ryp"/>
+      <field name="act_to" ref="act_diannei_ryp_support_manager_approve"/>
+      <field name="signal">support_manager_approve</field>
+    </record>
+
+    <!--店长审批-->
+    <record id="t4_2" model="workflow.transition">
+      <field name="act_from" ref="act_diannei_ryp_support_manager_approve"/>
+      <field name="act_to" ref="act_diannei_ryp_shop_manager_approve"/>
+      <field name="signal">shop_manager_approve</field>
+    </record>
+
+    <!--副总审批-->
+    <record id="t4_3" model="workflow.transition">
+      <field name="act_from" ref="act_diannei_ryp_shop_manager_approve"/>
+      <field name="act_to" ref="act_diannei_rp_vice_general_manager_approve"/>
+      <field name="signal">vice_general_manager_approve</field>
+    </record>
+    <!--完毕-->
+
+    <!-- t1-3 至 confirm -->
+     <record id="t1_4" model="workflow.transition">
+      <field name="act_from" ref="act_zongbu_caigou_ceo_approve"/>
+      <field name="act_to" ref="purchase.act_confirmed"/>
+      <field name="signal">purchase_confirm</field>
+    </record>
+
+    <!-- t2-4 至 confirm -->
+     <record id="t2_5" model="workflow.transition">
+      <field name="act_from" ref="act_diannei_jishu_it_manager_approve"/>
+      <field name="act_to" ref="purchase.act_confirmed"/>
+      <field name="signal">purchase_confirm</field>
+    </record>
+
+    <!-- t3-4 至 confirm -->
+     <record id="t3_5" model="workflow.transition">
+       <field name="act_from" ref="act_diannei_gongcheng_project_manager_approve"/>
+      <field name="act_to" ref="purchase.act_confirmed"/>
+      <field name="signal">purchase_confirm</field>
+    </record>
+
+
+    <!-- t4-3 至 confirm -->
+    <record id="t4_4" model="workflow.transition">
+       <field name="act_from" ref="act_diannei_rp_vice_general_manager_approve"/>
+      <field name="act_to" ref="purchase.act_confirmed"/>
+      <field name="signal">purchase_confirm</field>
+    </record>
+  </data>
+</openerp>
+
+

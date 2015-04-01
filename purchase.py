@@ -21,6 +21,29 @@ class purchase_order(osv.osv):
         ('except_invoice', 'Invoice Exception'),
         ('done', 'Done'),
         ('cancel', 'Cancelled'),
+        ('subed_zongbu_caigou','总部采购'),
+        ('zongbu_caigou_support_manager_approved','保障经理已审'),
+        ('zongbu_caigou_hr_manager_approved','办公室主任已审'),
+        ('zongbu_caigou_ceo_approved','总经理已审'),
+
+        ('subed_diannei_jishu','店内技术物品采购'),
+        ('diannei_jishu_support_manager_approved','保障经理已审'),
+        ('diannei_jishu_shop_manager_approved','店长已审'),
+        ('diannei_jishu_vice_general_manager_approved','副总已审'),
+        ('diannei_jishu_it_manager_approved','技术部经理已审'),
+
+        ('subed_diannei_gongcheng ','店内工程物品采购'),
+        ('diannei_gongcheng_support_manager_approved','保障经理已审'),
+        ('diannei_gongcheng_shop_manager_approved','店长已审'),
+        ('diannei_gongcheng_vice_general_manager_approved','副总已审'),
+        ('diannei_gongcheng_project_manager_approved','工程部经理已审'),
+
+        ('subed_diannei_ryp ','店内日用品采购'),
+        ('diannei_ryp_support_manager_approved','保障经理已审'),
+        ('diannei_ryp_shop_manager_approved','店长已审'),
+        ('diannei_ryp_vice_general_manager_approved','副总已审'),
+
+      '''
         ('subed_1','工程采购'),
         ('subed_2','技术采购'),
         ('project_stock_manager_approved','库管已审'),
@@ -29,6 +52,7 @@ class purchase_order(osv.osv):
         ('support_manager_approved','保障经理已审'),
         ('houqin_manager_approved','后勤经理已审'),
         ('shop_manager_approved','店长已审'),
+      '''
     ]
 
   def _get_where_args_with_workflow(self,cr,uid):
@@ -39,58 +63,77 @@ class purchase_order(osv.osv):
     pool = self.pool.get('res.users')
     user = pool.browse(cr,uid,uid)
     groups = user.groups_id
-    if not groups: return None 
+    if not groups: return None
+
     #根据group_id获取group名称
     model_data_pool = self.pool.get("ir.model.data")
-
-    #库管
-    group_stock_manager = model_data_pool.get_object(cr,uid,'stock','group_stock_manager')
-
-    #店长
-    group_shop_manager = model_data_pool.get_object(cr,uid,'base','group_shop_manager')
 
     #保障经理
     group_support_manager = model_data_pool.get_object(cr,uid,'custom_purchase','group_support_manager')
 
-    #后勤主管
-    group_houqin_manager = model_data_pool.get_object(cr,uid,'custom_purchase','group_houqin_manager')
+    #办公室主任
+    group_hr_manager = model_data_pool.get_object(cr,uid,'base','group_hr_manager')
+
+    #店长
+    group_shop_manager = model_data_pool.get_object(cr,uid,'base','group_shop_manager')
+
+    #总经理
+    group_ceo = model_data_pool.get_object(cr,uid,'base','group_ceo')
+
+    #副总经理
+    group_vice_general_manager = model_data_pool.get_object(cr,uid,'base','group_vice_general_manager')
+
+    #工程部主管
+    group_project_manager = model_data_pool.get_object(cr,uid,'custom_purchase','group_project_manager')
+
 
     #技术主管
     group_it_manager = model_data_pool.get_object(cr,uid,'custom_purchase','group_it_manager')
 
-    #总经理
-    #group_ceo = model_data_pool.get_object(cr,uid,'base','group_ceo')
-
     #找出当前用户属于哪个group
-    list_b = [group_stock_manager,group_shop_manager,group_support_manager,group_houqin_manager,group_it_manager]
+    list_b = [group_support_manager,group_hr_manager,
+              group_shop_manager,group_ceo,group_vice_general_manager,
+              group_it_manager,group_project_manager]
+
     matched_groups = list(set(groups).intersection(set(list_b)))
     if not matched_groups: return None
 
     state = "__not_use__"
     signal = "__not_use__"
 
-    #FIXME 暂不支持库管在手机上看到待审批单据
-    '''
-    if group_stock in matched_groups:
-      state = ["sub_1","sub_2"]
-      signal = "stock_manager_approve_project"
-    '''
-
-    if group_shop_manager in matched_groups:
-      state = ["project_stock_manager_approved"]
-      signal = "shop_manager_approve"
-
-    if group_it_manager in matched_groups:
-      state = ["it_stock_manager_approved"]
-      signal = "it_manager_approve"
-
     if group_support_manager in matched_groups:
-      state = ["shop_manager_approved"]
+      state = ["subed_zongbu_caigou","subed_diannei_jishu","subed_diannei_gongcheng","subed_diannei_ryp"]
       signal = "support_manager_approve"
 
-    if group_houqin_manager in matched_groups:
-      state = ["support_manager_approved"]
-      signal = "houqin_manager_approve"
+    if group_hr_manager in matched_groups:
+      state = ["zongbu_caigou_support_manager_approved"]
+      signal = "hr_manager_approve"
+
+    if group_ceo in matched_groups:
+      state = ["zongbu_caigou_hr_manager_approved"]
+      signal = "ceo_approve"
+
+    if group_shop_manager in matched_groups:
+      state = ["diannei_jishu_support_manager_approved",
+               "diannei_gongcheng_support_manager_approved",
+               "diannei_ryp_support_manager_approved",
+               ]
+      signal = "shop_manager_approve"
+
+    if group_vice_general_manager in matched_groups:
+      state = ["diannei_jishu_shop_manager_approved",
+               "diannei_gongcheng_shop_manager_approved",
+               "diannei_ryp_shop_manager_approved",
+               ]
+      signal = "vice_general_manager_approve"
+
+    if group_it_manager in matched_groups:
+      state = ["diannei_jishu_vice_general_manager_approved"]
+      signal = "it_manager_approve"
+
+    if group_project_manager in matched_groups:
+      state = ["diannei_gongcheng_vice_general_manager_approved"]
+      signal = "project_manager_approve"
 
     return {"state" : state,"signal" : signal}
 
