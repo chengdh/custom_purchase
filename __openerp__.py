@@ -16,7 +16,8 @@
       'purchase_view.xml',
       'purchase_workflow.xml',
       'purchase_workflow_new.xml',
-        'report.xml'],
+        'report.xml'
+    ],
     'demo_xml': [],
     'active': False,
     'installable': True,

@@ -42,17 +42,6 @@ class purchase_order(osv.osv):
         ('diannei_ryp_support_manager_approved','保障经理已审'),
         ('diannei_ryp_shop_manager_approved','店长已审'),
         ('diannei_ryp_vice_general_manager_approved','副总已审'),
-
-      '''
-        ('subed_1','工程采购'),
-        ('subed_2','技术采购'),
-        ('project_stock_manager_approved','库管已审'),
-        ('it_stock_manager_approved','库管已审'),
-        ('it_manager_approved','技术经理已审'),
-        ('support_manager_approved','保障经理已审'),
-        ('houqin_manager_approved','后勤经理已审'),
-        ('shop_manager_approved','店长已审'),
-      '''
     ]
 
   def _get_where_args_with_workflow(self,cr,uid):
