@@ -51,7 +51,7 @@
 
     <!--营运保障审批-->
     <record id="t1_1" model="workflow.transition">
-      <field name="act_from" ref="act_sub_zonbu_caigou"/>
+      <field name="act_from" ref="act_sub_zongbu_caigou"/>
       <field name="act_to" ref="act_zongbu_caigou_hr_manager_approve"/>
       <field name="signal">support_manager_approve</field>
     </record>
@@ -289,7 +289,7 @@
     <!--副总审批-->
     <record id="t4_3" model="workflow.transition">
       <field name="act_from" ref="act_diannei_ryp_shop_manager_approve"/>
-      <field name="act_to" ref="act_diannei_rp_vice_general_manager_approve"/>
+      <field name="act_to" ref="act_diannei_ryp_vice_general_manager_approve"/>
       <field name="signal">vice_general_manager_approve</field>
     </record>
     <!--完毕-->
@@ -318,7 +318,7 @@
 
     <!-- t4-3 至 confirm -->
     <record id="t4_4" model="workflow.transition">
-       <field name="act_from" ref="act_diannei_rp_vice_general_manager_approve"/>
+       <field name="act_from" ref="act_diannei_ryp_vice_general_manager_approve"/>
       <field name="act_to" ref="purchase.act_confirmed"/>
       <field name="signal">purchase_confirm</field>
     </record>
