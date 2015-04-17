@@ -21,9 +21,9 @@
             <button name="sub_diannei_ryp" states="draft" string="店内日用品采购" />
 
 
-            <button name="support_manage_approve" states="subed_zongbu_caigou,subed_diannei_jishu,subed_diannei_gongcheng,subed_diannei_ryp" string="保障经理审批" groups="custom_purchase.group_support_manager" />
-            <button name="hr_manage_approve" states="zongbu_caigou_support_manager_approved" string="办公室主任审批" groups="base.group_hr_manager" />
-            <button name="ceo_approve" states="zongbu_caigou_hr_manage_approved" string="总经理审批" groups="base.group_ceo" />
+            <button name="support_manager_approve" states="subed_zongbu_caigou,subed_diannei_jishu,subed_diannei_gongcheng,subed_diannei_ryp" string="保障经理审批" groups="custom_purchase.group_support_manager" />
+            <button name="hr_manager_approve" states="zongbu_caigou_support_manager_approved" string="办公室主任审批" groups="base.group_hr_manager" />
+            <button name="ceo_approve" states="zongbu_caigou_hr_manager_approved" string="总经理审批" groups="base.group_ceo" />
 
 
             <button name="shop_manager_approve" 
