@@ -13,7 +13,7 @@
         <record id="rule_support_manager_purchase_order" model="ir.rule">
           <field name="name">Support Manager Purchas Order</field>
             <field model="ir.model" name="model_id" ref="purchase.model_purchase_order"/>
-            <field name="domain_force">[(user.employee_ids,'child_of','department_id.member_ids')]</field>
+            <field name="domain_force">[('department_id','=',user.employee_ids[0].department_id.id)]</field>
             <field name="groups" 
               eval="[(4,ref('custom_purchase.group_support_manager'))]"/>
         </record>
