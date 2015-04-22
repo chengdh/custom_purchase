@@ -9,6 +9,15 @@
             <field name="groups" 
               eval="[(4,ref('base.group_shop_manager'))]"/>
         </record>
+        <!--营运保障经理只能看到自己部门的采购申请-->
+        <record id="rule_support_manager_purchase_order" model="ir.rule">
+          <field name="name">Support Manager Purchas Order</field>
+            <field model="ir.model" name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="domain_force">[(user.employee_ids,'child_of','department_id.member_ids')]</field>
+            <field name="groups" 
+              eval="[(4,ref('custom_purchase.group_support_manager'))]"/>
+        </record>
+
         <!--副总可看到自己管辖部门的数据-->
         <record id="rule_vice_general_manager_purchase_order" model="ir.rule">
             <field name="name">Vice General Manager Account Voucher</field>
