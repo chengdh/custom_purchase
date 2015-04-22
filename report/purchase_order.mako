@@ -1,10 +1,6 @@
 #coding: utf-8
-<%from datetime import datetime %>
-<html>
-<head>
-<title>采购订单</title>
   <style type='text/css'>
-@media print{
+  @media print{
     .header-table,.content-table{
       width : 100%;
       border-collapse : collapse;
@@ -18,15 +14,13 @@
     .content-table tfoot td{
       border : none;
     }
-}
+  }
   </style>
-</head>
-<body>
-
+<%from datetime import datetime %>
 %for order in objects:
 <table class='header-table'>
   <tr>
-    <th colspan='4'>${user.company_id.name}采购订单</th>
+    <th colspan='4'>${user.company_id.name}采购订单-00001</th>
   </tr>
   <tr>
     <td>入库单号:</td>
@@ -46,7 +40,6 @@
     <td>审核时间:</td>
     <td>${order.date_approve}</td>
   </tr>
-
   <tr>
     <td>仓库:</td>
     <td>${order.warehouse_id.name}</td>
@@ -108,5 +101,3 @@
   </tfoot>
 </table>
 %endfor
-</body>
-</html>

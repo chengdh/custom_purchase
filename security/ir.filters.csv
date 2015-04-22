@@ -1,0 +1,8 @@
+id,context,model_id,user_id/id,name,domain,is_default
+custom_security.purchase_order_support_manager_filter,{},purchase.order,base.user_root,保障经理待审批申购单,"[('state','in',['subed_zongbu_caigou','subed_diannei_jishu','subed_diannei_gongcheng','subed_diannei_ryp'])]",1
+custom_security.purchase_order_shop_manager_filter,{},purchase.order,base.user_root,店长待审批申购单,"[('state','in',['diannei_jishu_support_manager_approved','diannei_gongcheng_support_manager_approved','diannei_ryp_support_manager_approved'])]",1
+custom_security.purchase_order_hr_manager_filter,{},purchase.order,base.user_root,办公室主任待审批申购单,"[('state','in',['zongbu_caigou_support_manager_approved'])]",1
+custom_security.purchase_order_ceo_filter,{},purchase.order,base.user_root,总经理待审批申购单,"[('state','in',['zongbu_caigou_hr_manager_approved'])]",1
+custom_security.purchase_order_vice_general_manager_filter,{},purchase.order,base.user_root,副总经理待审批申购单,"[('state','in',['diannei_jishu_shop_manager_approved','diannei_gongcheng_shop_manager_approved','diannei_ryp_shop_manager_approved'])]",1
+custom_security.purchase_order_it_manager_filter,{},purchase.order,base.user_root,技术部经理待审批申购单,"[('state','in',['diannei_jishu_vice_general_manager_approved'])]",1
+custom_security.purchase_order_project_manager_filter,{},purchase.order,base.user_root,工程部经理待审批申购单,"[('state','in',['diannei_gongcheng_vice_general_manager_approved'])]",1
