@@ -32,7 +32,7 @@ class purchase_order(osv.osv):
         ('diannei_jishu_vice_general_manager_approved','副总已审'),
         ('diannei_jishu_it_manager_approved','技术部经理已审'),
 
-        ('subed_diannei_gongcheng ','店内工程物品采购'),
+        ('subed_diannei_gongcheng','店内工程物品采购'),
         ('diannei_gongcheng_support_manager_approved','保障经理已审'),
         ('diannei_gongcheng_shop_manager_approved','店长已审'),
         ('diannei_gongcheng_vice_general_manager_approved','副总已审'),
