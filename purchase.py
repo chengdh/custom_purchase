@@ -159,3 +159,30 @@ class purchase_order(osv.osv):
     purchase_orders = self.read(cr,uid,ids,context=context)
     _logger.debug("return purchase_orders =  " + repr(purchase_orders));
     return purchase_orders
+
+class purchase_order_line(osv.osv):
+    '''
+    添加当前库存字段,基于warehouse_id及product_id
+    '''
+    _name = "purchase.order.line"
+    _inherit = "purchase.order.line"
+
+    def _qty_available_with_warehouse_id(self,cr,uid,ids,field_name,args,context):
+        location_pool = self.pool.get('stock.location')
+        res = {}
+        for line in self.browse(cr,uid,ids,context):
+            product = line.product_id
+            purchase_order = line.order_id
+            location_id = purchase_order.location_id.id
+
+            context["product_id"] = product.id
+            _logger.info("location_id = %s"% location_id)
+            location = location_pool.browse(cr,uid,location_id,context)
+            res[line.id] = location.stock_real
+
+        return res
+
+    _columns = {
+        'qty_available' : fields.function(_qty_available_with_warehouse_id,string="当期库存",help="计算订单行所对应的产品库存"),
+        #'qty_available' : fields.related("order_id","location_id","stock_real",type="float",string="当期库存",help="计算订单行所对应的产品库存"),
+    }

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
   <data>
+    <!-- 给采购订单明细添加当期库存选项 -->
+    <record model="ir.ui.view" id="purchase_order_form_add_qty_available">
+      <field name="name">purchase.order.form.inherited_add_qty_available</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.purchase_order_form"/>
+      <field name="arch" type="xml">
+        <field name="price_unit" position="after">
+          <field name="qty_available" />
+        </field>
+      </field>
+    </record>
+
     <record model="ir.ui.view" id="purchase_order_form">
       <field name="name">purchase.order.form.inherited</field>
       <field name="model">purchase.order</field>
